@@ -21,7 +21,7 @@ Based on these inputs, the application predicts whether the customer feedback wo
 
 ## Installation
 
-To install the necessary dependencies, run the following command:
+To install the necessary dependencies, run the following command (advisable to create a venv):
 
 ```bash
 pip install -r requirements.txt
