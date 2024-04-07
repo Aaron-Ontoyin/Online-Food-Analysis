@@ -27,6 +27,10 @@ To install the necessary dependencies, run the following command:
 pip install -r requirements.txt
 ```
 
+## ENV Variables
+create a `.env` file and set a base color for the graphs(Optional)
+`BASE_COLOR="#000060"`
+
 ## Usage
 
 To start the application, navigate to the application directory and run the following command:
