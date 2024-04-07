@@ -41,6 +41,8 @@ streamlit run app.py
 
 This will start the application and provide a URL where you can access it.
 
+To see how the exploration was done and the model was create, see the [notebooks directory](notebooks)
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
