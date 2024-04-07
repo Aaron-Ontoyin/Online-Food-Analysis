@@ -91,7 +91,7 @@ match menu_id:
             st.markdown("""<div class="space"></div>""", unsafe_allow_html=True)
 
         st.markdown(
-            "Check [here](https://aaron-ontoyin-yin.virtual-world.tech) to reach out for support or bugs report!"
+            "Check [here](https://aaron-ontoyin-yin.virtual-world.tech) to reach the repo manager for bugs report or support!"
         )
 
     case "do":
