@@ -1,5 +1,4 @@
 import os
-import pickle
 
 import streamlit as st
 import hydralit_components as hc
@@ -61,17 +60,38 @@ menu_id = hc.nav_bar(
 
 
 intro_info = (
-    """This app is a data explorer for food data.\nCreated by GR 10, EL 3, UMaT 2024."""
+    """
+    #### Created by GR 10, EL 3, UMaT 2024.
+    - FOE.41.006.205.21 WUSAH, Mahama
+    - FOE.41.006.206.21 YAHAYA, Hudu
+    - FOE.41.006.207.21 YALLEY, Emmanuel Kobina
+    - FOE.41.006.208.21 YAMOAH, Emmanuel
+    - FOE.41.006.209.21 YAMOAH-ASANTE, Michael Papa Kwadwo
+    - FOE.41.006.210.21 YIN, Aaron Ontoyin
+    - FOE.41.006.211.21 YIRENKYI, Juliet Mante (Miss)
+    - FOE.41.006.212.21 YOPAAL, Christopher
+    - FOE.41.006.213.21 ZAKARIYYA, Firdaus Nebia (Miss)
+    - FOE.41.006.214.21 ZONG, Bernard Ndeng-Bangme
+    - BS422100920 ADU, Louis Kofi Seyram
+    """
 )
 
 
 match menu_id:
     case "Home":
         st.markdown("## Online Food Data Explorer")
-        for sequence in intro_info.split("\n"):
-            st.write_stream(gen_sequence(sequence))
+        st.write("This app is a rich data explorer and ML application for [online food data](https://www.kaggle.com/datasets/sudarshan24byte/online-food-dataset) at kaggle by SUDARSHAN TRIFALEY.")
+        names_col, img_col = st.columns(2)
+        with names_col:
+            for sequence in intro_info.split("\n"):
+                st.write_stream(gen_sequence(sequence))
+        with img_col:
+            st.markdown("""<div class="space"></div>""", unsafe_allow_html=True)
+            st.image("images/umat.png")
+            st.markdown("""<div class="space"></div>""", unsafe_allow_html=True)
+
         st.markdown(
-            "Check [here](https://aaron-ontoyin-yin.virtual-world.tech) to reach out to the creator!"
+            "Check [here](https://aaron-ontoyin-yin.virtual-world.tech) to reach out for support or bugs report!"
         )
 
     case "do":
@@ -142,10 +162,12 @@ match menu_id:
                 key="plot_type_single_label",
             )
 
-            st.plotly_chart(
-                unilabel_dist_plot(st.session_state.df, label, plot_type),
-                use_container_width=True,
-            )
+            chart = unilabel_dist_plot(st.session_state.df, label, plot_type)
+            if type(chart) == str:
+                st.info(chart)
+            else:
+                st.plotly_chart(chart, use_container_width=True)
+
 
         with bi_label_tab:
             label1_col, label2_col, plot_type_col = st.columns(3)
@@ -253,7 +275,7 @@ match menu_id:
                 latitude = st.number_input("Latitude", key="latitude")
             with input_col3:
                 longitude = st.number_input("Longitude", key="longitude")
-                output = st.selectbox("Output", ["Confirmed", "Delivered"])
+                output = st.selectbox("Delivery Status", ["Confirmed", "Delivered"])
 
             prediction = st.session_state.modelObj.predict(
                 age=age,
@@ -280,11 +302,16 @@ match menu_id:
                         unsafe_allow_html=True,
                     )
 
-# st.write()
 
 st.markdown(
     """
     <style>
+    
+     [data-testid="stImage"] {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+     }
     #footer {
         position: fixed;
         left: 0;
@@ -295,17 +322,18 @@ st.markdown(
         text-align: center;
         padding: 1rem;
     }
-    #space {
+    .space {
         width: 100%;
-        height: 7em;
+        height: 4em;
     }
+    
     </style>
     """,
     unsafe_allow_html=True,
 )
 st.markdown(
     """
-    <div id="space"></div>
+    <div class="space"></div>
     <div id="footer">Made with ❤️ by GR 10, EL 3, UMaT 2024</div>
     """,
     unsafe_allow_html=True,
