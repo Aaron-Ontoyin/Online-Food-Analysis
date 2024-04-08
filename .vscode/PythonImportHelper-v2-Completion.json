@@ -636,7 +636,7 @@
         "kind": 2,
         "importPath": "graphs",
         "description": "graphs",
-        "peekOfCode": "def unilabel_dist_plot(\n    df: pd.DataFrame,\n    label,\n    type_=Literal[\n        \"histogram\", \"bar chart\", \"boxplot\", \"violin chart\", \"kde plot\", \"pie\"\n    ],\n) -> go.Figure:\n    \"\"\"\n    Generate a distribution plot for a single label in a DataFrame.\n    Args:",
+        "peekOfCode": "def unilabel_dist_plot(\n    df: pd.DataFrame,\n    label,\n    type_=Literal[\n        \"histogram\", \"bar chart\", \"boxplot\", \"violin chart\", \"kde plot\", \"pie chart\"\n    ],\n) -> go.Figure:\n    \"\"\"\n    Generate a distribution plot for a single label in a DataFrame.\n    Args:",
         "detail": "graphs",
         "documentation": {}
     },
@@ -645,7 +645,7 @@
         "kind": 2,
         "importPath": "graphs",
         "description": "graphs",
-        "peekOfCode": "def bilable_dist_plot(\n    df: pd.DataFrame,\n    label1,\n    label2,\n    type_=Literal[\"boxplot\", \"violin chart\"],\n) -> go.Figure:\n    \"\"\"\n    Generate a distribution plot based on the given data and plot type.\n    Args:\n        df (pd.DataFrame): The input DataFrame containing the data.",
+        "peekOfCode": "def bilable_dist_plot(\n    df: pd.DataFrame, label1, label2, type_=Literal[\"boxplot\", \"violin chart\", \"bar\"]\n) -> go.Figure:\n    \"\"\"\n    Generate a distribution plot based on the given data and plot type.\n    Args:\n        df (pd.DataFrame): The input DataFrame containing the data.\n        label1: The column label for the x-axis.\n        label2: The column label for the y-axis.\n        type_ (Literal[\"boxplot\", \"violin chart\", \"bar\"]): The type of plot to generate.",
         "detail": "graphs",
         "documentation": {}
     },
@@ -654,7 +654,7 @@
         "kind": 2,
         "importPath": "graphs",
         "description": "graphs",
-        "peekOfCode": "def multiabel_dist_plot(\n    df: pd.DataFrame,\n    label1,\n    label2,\n    label3,\n    label4=None,\n) -> go.Figure:\n    \"\"\"\n    Generate a multi-dimensional distribution plot using Plotly.\n    Args:",
+        "peekOfCode": "def multiabel_dist_plot(\n    df: pd.DataFrame,\n    label1,\n    label2,\n    label3,\n    label4=None,\n    label5=None,\n) -> go.Figure:\n    \"\"\"\n    Generate a multi-dimensional distribution plot using Plotly.",
         "detail": "graphs",
         "documentation": {}
     },
@@ -663,7 +663,7 @@
         "kind": 5,
         "importPath": "graphs",
         "description": "graphs",
-        "peekOfCode": "BASE_COLOR = os.getenv(\"BASE_COLOR\", \"#000060\")\ndef unilabel_dist_plot(\n    df: pd.DataFrame,\n    label,\n    type_=Literal[\n        \"histogram\", \"bar chart\", \"boxplot\", \"violin chart\", \"kde plot\", \"pie\"\n    ],\n) -> go.Figure:\n    \"\"\"\n    Generate a distribution plot for a single label in a DataFrame.",
+        "peekOfCode": "BASE_COLOR = os.getenv(\"BASE_COLOR\", \"#000060\")\ndef unilabel_dist_plot(\n    df: pd.DataFrame,\n    label,\n    type_=Literal[\n        \"histogram\", \"bar chart\", \"boxplot\", \"violin chart\", \"kde plot\", \"pie chart\"\n    ],\n) -> go.Figure:\n    \"\"\"\n    Generate a distribution plot for a single label in a DataFrame.",
         "detail": "graphs",
         "documentation": {}
     },

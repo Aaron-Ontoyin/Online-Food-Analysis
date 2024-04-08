@@ -17,7 +17,7 @@ def unilabel_dist_plot(
     df: pd.DataFrame,
     label,
     type_=Literal[
-        "histogram", "bar chart", "boxplot", "violin chart", "kde plot", "pie"
+        "histogram", "bar chart", "boxplot", "violin chart", "kde plot", "pie chart"
     ],
 ) -> go.Figure:
     """
@@ -61,7 +61,7 @@ def unilabel_dist_plot(
             [df[label].dropna().values], group_labels=[label], show_hist=False
         )
         yaxis_title = "Density"
-    elif type_ == "pie":
+    elif type_ == "pie chart":
         fig.add_trace(
             go.Pie(
                 labels=df[label].value_counts().index,
@@ -85,10 +85,7 @@ def unilabel_dist_plot(
 
 
 def bilable_dist_plot(
-    df: pd.DataFrame,
-    label1,
-    label2,
-    type_=Literal["boxplot", "violin chart"],
+    df: pd.DataFrame, label1, label2, type_=Literal["boxplot", "violin chart", "bar"]
 ) -> go.Figure:
     """
     Generate a distribution plot based on the given data and plot type.
@@ -97,16 +94,18 @@ def bilable_dist_plot(
         df (pd.DataFrame): The input DataFrame containing the data.
         label1: The column label for the x-axis.
         label2: The column label for the y-axis.
-        type_ (Literal["boxplot", "violin chart"]): The type of plot to generate.
+        type_ (Literal["boxplot", "violin chart", "bar"]): The type of plot to generate.
 
     Returns:
         go.Figure: The generated plot as a Plotly Figure object.
     """
     fig = go.Figure()
     xaxis_title = label1
-    yaxis_title = label2
 
-    if type_ == "boxplot":
+    if type_ == "bar":
+        fig = px.bar(df, x=label1, color=label2, barmode="group")
+        yaxis_title = "Count"
+    elif type_ == "boxplot":
         fig.add_trace(go.Box(x=df[label1], y=df[label2], boxmean=True))
         yaxis_title = label2
         xaxis_title = label1
@@ -119,7 +118,9 @@ def bilable_dist_plot(
         yaxis_title = label2
         xaxis_title = label1
     else:
-        raise ValueError("Invalid type. It must be either 'boxplot', or 'violin chart.")
+        raise ValueError(
+            "Invalid type. It must be either 'bar', 'boxplot', or 'violin chart."
+        )
     fig.update_layout(
         title=f"{type_.title()} of {label1.title()} vs {label2.title()}",
         xaxis_title=xaxis_title,
@@ -127,13 +128,13 @@ def bilable_dist_plot(
     )
     return fig
 
-
 def multiabel_dist_plot(
     df: pd.DataFrame,
     label1,
     label2,
     label3,
     label4=None,
+    label5=None,
 ) -> go.Figure:
     """
     Generate a multi-dimensional distribution plot using Plotly.
@@ -144,18 +145,26 @@ def multiabel_dist_plot(
         label2: The column name to be used for row-wise faceting.
         label3: The column name to be used for column-wise faceting.
         label4: The column name to be used for animation frames (optional).
+        lable5: The colume nane to be used for the coloring (optional).
 
     Returns:
         go.Figure: The generated Plotly figure.
 
     """
+    
+    title = f"{label1.title()} vs {label2.title()} vs {label3.title()}"
+    if label4:
+        title = f"{title} vs {label4.title()}"
+    if label5:
+        title = f"{title} vs {label5.title()}"
     fig = px.histogram(
         df,
         x=label1,
         facet_row=label2,
         facet_col=label3,
         animation_frame=label4,
-        title=f"{label1.title()} vs {label2.title()} vs {label3.title()}",
+        color=label5,
+        title=title,
     )
 
     return fig

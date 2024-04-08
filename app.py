@@ -138,10 +138,11 @@ match menu_id:
 
     case "dv":
         st.markdown("## Data Visualization")
+        st.info("Ensure appropriate column selection for meaningful graph representation!")
+
         single_label_tab, bi_label_tab, multi_label_tab = st.tabs(
             ["Single Label", "Bi-Label", "Multi-Label"]
         )
-
         with single_label_tab:
             label_col, plot_type_col = st.columns(2)
             label = label_col.selectbox(
@@ -157,7 +158,7 @@ match menu_id:
                     "boxplot",
                     "violin chart",
                     "kde plot",
-                    "pie",
+                    "pie chart",
                 ],
                 key="plot_type_single_label",
             )
@@ -187,6 +188,7 @@ match menu_id:
                 [
                     "violin chart",
                     "boxplot",
+                    "bar"
                 ],
                 key="plot_type_bi_label",
             )
@@ -197,7 +199,7 @@ match menu_id:
             )
 
         with multi_label_tab:
-            label1_col, label2_col, label3_col, label4_col = st.columns(4)
+            label1_col, label2_col, label3_col, label4_col , label5_col = st.columns(5)
             label1 = label1_col.selectbox(
                 "Select the first label to visualize",
                 st.session_state.df.columns,
@@ -220,10 +222,15 @@ match menu_id:
                 [None] + st.session_state.df.columns.to_list(),
                 key="multi_label4",
             )
+            label5 = label5_col.selectbox(
+                "Select the fifth label to visualize",
+                [None] + st.session_state.df.columns.to_list(),
+                key="multi_label5",
+            )
 
             st.plotly_chart(
                 multiabel_dist_plot(
-                    st.session_state.df, label1, label2, label3, label4
+                    st.session_state.df, label1, label2, label3, label4, label5
                 ),
                 use_container_width=True,
             )
